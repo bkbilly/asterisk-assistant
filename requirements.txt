@@ -1,3 +1,14 @@
-gTTS==2.2.3
-SpeechRecognition==3.8.1
+# AGI
 pyst2==0.5.1
+
+# SR
+SpeechRecognition==3.8.1
+
+# TTS
+gTTS==2.2.3
+
+# HASS
+requests==2.26.0
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.12.2
+

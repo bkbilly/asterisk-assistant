@@ -6,16 +6,21 @@ I've created this to help anyone who wants to add AGI functionality to their Ast
 ## Install
 ```bash
 sudo pip install -r requirements.txt
-sudo cp speech-recognition.py /var/lib/asterisk/agi-bin/speech-recognition.py
-sudo chown asterisk:asterisk /var/lib/asterisk/agi-bin/speech-recognition.py
-sudo chmod +x /var/lib/asterisk/agi-bin/speech-recognition.py
+sudo cp sr.py /var/lib/asterisk/agi-bin/
+sudo cp tts.py /var/lib/asterisk/agi-bin/
+sudo cp hass.py /var/lib/asterisk/agi-bin/
+sudo chown asterisk:asterisk /var/lib/asterisk/agi-bin/*.py
+sudo chmod +x /var/lib/asterisk/agi-bin/*.py
 ```
 
 ## Example of `extensions.conf`
 ```
 exten => 45,1,Answer()
-exten => 45,n,agi(speech-recognition.py)
-exten => 45,n,Verbose(1,The text you just said is: ${recognition})
+exten => 45,n,agi(sr.py)
+exten => 45,n,agi(tts.py,${recognition})
+exten => 45,n,agi(hass.py,${recognition})
+exten => 45,n,agi(tts.py,${hass_result})
+exten => 45,n,Hangup()
 ```
 
 ## What does this help me achieve...
