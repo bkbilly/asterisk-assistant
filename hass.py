@@ -33,9 +33,13 @@ actions = {
         "type": "command"
     },
     "time": {
-        "sentences": ["what time is it", "what is the date", "what day is it"],
+        "sentences": ["τι ώρα είναι", "what time is it", "what is the date", "what day is it"],
         "payload": {"template": "the date is {{ now().strftime('%A %d of %B %H:%M') }}"},
         "type": "template"
+    },
+    "goodbye": {
+        "sentences": ["Goodbye", "Αντίο"],
+        "type": "end"
     }
 }
 
@@ -45,27 +49,34 @@ for key, value in actions.items():
     if sentense in value['sentences']:
         action = key
 
+agi.verbose(f"Recognized: {action} with score {score}")
 # Home Assistant
 if score > 80:
-    payload = json.dumps(actions[action]['payload'])
     if actions[action]['type'] == 'command':
         event = actions[action]['event']
         url = f"{hass_url}/api/services/{event}"
+        payload = json.dumps(actions[action]['payload'])
         headers = {
             "Authorization": f"Bearer {hass_token}",
             "content-type": "application/json",
         }
         response = post(url, headers=headers, data=payload)
-        agi.set_variable("hass_result", f"Executed command {action}")
+        agi.set_variable("hass_text", f"Executed command {action}")
     elif actions[action]['type'] == 'template':
         url = f"{hass_url}/api/template"
+        payload = json.dumps(actions[action]['payload'])
         headers = {
             "Authorization": f"Bearer {hass_token}",
             "content-type": "application/json",
         }
         response = post(url, headers=headers, data=payload)
         print(response)
-        agi.set_variable("hass_result", response.text)
+        agi.set_variable("hass_text", response.text)
+    elif actions[action]['type'] == 'end':
+        agi.set_variable("hass_text", "Goodbye")
+        agi.hangup()
+    else:
+        agi.set_variable("hass_text", "Error handling action type")
 else:
-    agi.set_variable("hass_result", "Couldn't recognise what you said")
+    agi.set_variable("hass_text", "Couldn't recognise what you said")
 

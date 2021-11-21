@@ -8,10 +8,11 @@ agi = AGI()
 record_file = '/tmp/asterisk_record'
 language = 'el-GR'
 out_format = 'wav'
+agi.set_variable("recognition", "")
 
 # Record audio
 agi.verbose("python agi started")
-agi.record_file(record_file, timeout=10000, format=out_format, silence=1, escape_digits='0')
+agi.record_file(record_file, timeout=10000, format=out_format, silence=2, escape_digits='0')
 
 # Speech Recognition
 r = sr.Recognizer()
