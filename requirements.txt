@@ -6,6 +6,7 @@ SpeechRecognition==3.8.1
 
 # TTS
 gTTS==2.2.3
+pydub==0.25.1
 
 # HASS
 requests==2.26.0
