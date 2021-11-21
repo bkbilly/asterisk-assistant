@@ -8,7 +8,7 @@ There are three parts on the recognition (Speech Recognition, Text-to-Speech, In
 Records the speaker to a file as a wav and sends it to the recognizer to get the output text. This is stored in a variable called `${recognition}`.
 
 ### Text-to-Speech (`tts.py`)
-Takes as a text argument and uploads it to google to get the audio file which is saved as an mp3. The problem with this file is that it is not so loud, so it is boosted and then stream the file to the listener.
+Takes as a text argument and uploads it to google to get the audio file which is saved as an mp3. The audio file is then streamed to the listener.
 
 ### Intent (`hass.py`)
 This finds the closest sentence that matches the sentences provided on the `actions` variable. It can support multiple sentences for the same event like you can see at the example provided on hass.py file.
@@ -28,6 +28,7 @@ exten => 45,1,Gosub(voiceassistant,${EXTEN},1)
 
 [voiceassistant]
 exten => _X.,1,Answer()
+exten => _X.,n,Set(VOLUME(TX)=15)
 exten => _X.,n(startvoice),NoOP(Started voice assistant)
 exten => _X.,n,agi(sr.py)
 exten => _X.,n,GotoIf($["${recognition}" == ""]?endvoice)
@@ -38,7 +39,7 @@ exten => _X.,n(endvoice),Hangup()
 ```
 
 ## Install
-You might want to edit the init section to meet your needs, like **language**, **hass_url**, **hass_token**, **volume_boost** and the **actions**:
+You might want to edit the init section to meet your needs, like **language**, **hass_url**, **hass_token** and the **actions**:
 ```bash
 sudo pip install -r requirements.txt
 sudo cp sr.py /var/lib/asterisk/agi-bin/
