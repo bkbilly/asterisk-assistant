@@ -58,3 +58,6 @@ sudo chmod +x /var/lib/asterisk/agi-bin/*.py
 
 ## Insipration
 This is inspired by the [asterisk-speech-recog](https://github.com/zaf/asterisk-speech-recog) project which seems to be outdated.
+
+## Video Preview
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/pNg3k7Uutpk/0.jpg)](https://youtu.be/pNg3k7Uutpk?t=110)
