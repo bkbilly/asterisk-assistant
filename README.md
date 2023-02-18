@@ -41,6 +41,7 @@ exten => _X.,n(endvoice),Hangup()
 ## Install
 You might want to edit the init section to meet your needs, like **language**, **hass_url**, **hass_token** and the **actions**:
 ```bash
+sudo apt install ffmpeg
 sudo pip install -r requirements.txt
 sudo cp sr.py /var/lib/asterisk/agi-bin/
 sudo cp tts.py /var/lib/asterisk/agi-bin/
@@ -61,3 +62,4 @@ This is inspired by the [asterisk-speech-recog](https://github.com/zaf/asterisk-
 
 ## Video Preview
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/pNg3k7Uutpk/0.jpg)](https://youtu.be/pNg3k7Uutpk?t=110)
+

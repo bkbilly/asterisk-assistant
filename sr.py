@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.9
+#!/usr/bin/env python3
 
 from asterisk.agi import AGI
 import speech_recognition as sr
