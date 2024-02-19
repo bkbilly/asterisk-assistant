@@ -10,6 +10,9 @@ Records the speaker to a file as a wav and sends it to the recognizer to get the
 ### Text-to-Speech (`tts.py`)
 Takes as a text argument and uploads it to google to get the audio file which is saved as an mp3. The audio file is then streamed to the listener.
 
+### Text-to-Speech for Home Assistant (`tts_hass.py`)
+It works similar as `tts.py`, but it connects to home assistant to use the piper speech recognition, though you could change.
+
 ### Intent (`hass.py`)
 This finds the closest sentence that matches the sentences provided on the `actions` variable. It can support multiple sentences for the same event like you can see at the example provided on hass.py file.
 There are some options that are needed for each action type so that they can communicate succesfully with Home assistant.
@@ -34,6 +37,7 @@ exten => _X.,n,agi(sr.py)
 exten => _X.,n,GotoIf($["${recognition}" == ""]?endvoice)
 exten => _X.,n,agi(hass.py,${recognition})
 exten => _X.,n,agi(tts.py,${hass_text})
+exten => _X.,n,agi(tts_hass.py,${hass_text},"en_US","en-us-amy-low")
 exten => _X.,n,Goto(startvoice)
 exten => _X.,n(endvoice),Hangup()
 ```
